@@ -1,0 +1,23 @@
+GET http://localhost:3000/api/posts
+
+###
+POST http://localhost:3000/api/posts
+
+{
+    "title": "CUSTOM BODY",
+    "body": "CUSTOM BODY"
+}
+
+###
+GET http://localhost:3000/api/posts/10
+
+
+###
+PATCH http://localhost:3000/api/posts/11
+
+{
+    "title": "The Rise of AI [updated]"
+}
+
+###
+DELETE http://localhost:3000/api/posts/10
