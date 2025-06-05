@@ -6,6 +6,8 @@ import GithubSignIn from "@/components/auth/githubSignIn";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { executeAction } from "@/lib/executeAction";
+import { signIn } from "@/lib/auth";
 
 export default async function Register() {
   const session = await auth();
@@ -27,7 +29,17 @@ export default async function Register() {
             <Separator className="flex-1" />
           </div>
         </div>
-        <form className="space-y-5">
+        <form
+          action={async (formData: FormData) => {
+            "use server";
+            await executeAction({
+              actionFn: async () => {
+                await signIn("credentials", formData);
+              },
+            });
+          }}
+          className="space-y-5"
+        >
           <div>
             <Label htmlFor="name">Full Name</Label>
             <Input id="name" placeholder="John Doe" name="name" type="text" />
@@ -54,7 +66,7 @@ export default async function Register() {
         </form>
 
         <div>
-          Already have an account?{" "}
+          Already have an account?
           <Link href="/login" className="font-semibold hover:underline">
             Login
           </Link>
