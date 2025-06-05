@@ -2,8 +2,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-export default function Login() {
+export default async function Login() {
+  const session = await auth();
+  if (session) redirect("/");
+
   return (
     <main className="flex items-center justify-center min-h-screen flex-col">
       <div className="w-[400px] p-10 space-y-5 shadow-lg rounded-lg border-1  border-neutral-200">
