@@ -7,20 +7,14 @@ export const { auth, handlers, signIn } = NextAuth({
     GitHub,
     Credentials({
       credentials: {
-        name: {},
         email: {},
         password: {},
       },
       authorize: async (credentials) => {
-        const name = "veejay";
         const email = "vee@gmail.com";
         const password = "123";
 
-        if (
-          credentials.name === name &&
-          credentials.email === email &&
-          credentials.password === password
-        ) {
+        if (credentials.email === email && credentials.password === password) {
           return { email, password };
         } else {
           throw new Error("Invalid credentials");
@@ -29,7 +23,3 @@ export const { auth, handlers, signIn } = NextAuth({
     }),
   ],
 });
-
-// async authorize(credentials) {
-//         throw new InvalidLoginError()
-//       },

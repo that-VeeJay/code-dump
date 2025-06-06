@@ -1,17 +1,15 @@
 "use client";
 
+import { Button } from "@/components/ui";
 import { signOut } from "next-auth/react";
-import { Button } from "../ui/button";
 
 export default function SignOut() {
   const handleSignOut = async () => {
-    await signOut({
-      callbackUrl: "/register",
-    });
+    await signOut({ callbackUrl: "/login" });
   };
 
   return (
-    <Button onClick={handleSignOut} variant="destructive">
+    <Button variant="destructive" onClick={handleSignOut}>
       Sign out
     </Button>
   );

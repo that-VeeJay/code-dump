@@ -1,19 +1,17 @@
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui";
 import { Github } from "lucide-react";
 import { signIn } from "@/lib/auth";
 
-export default function GithubSignIn() {
+export default function GithubButton() {
   return (
     <form
       action={async () => {
         "use server";
         await signIn("github");
       }}
-      className="w-full"
     >
       <Button variant="outline" className="w-full">
-        <Github />
-        Continue with Github
+        <Github /> Sign in with Github
       </Button>
     </form>
   );

@@ -1,77 +1,68 @@
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import GithubSignIn from "@/components/auth/githubSignIn";
+import {
+  Card,
+  CardHeader,
+  CardDescription,
+  CardTitle,
+  CardContent,
+  CardFooter,
+  Button,
+  Input,
+  Label,
+} from "@/components/ui";
+import Link from "next/link";
+import { Metadata } from "next";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import Link from "next/link";
-import { executeAction } from "@/lib/executeAction";
-import { signIn } from "@/lib/auth";
+
+export const metadata: Metadata = { title: "Create an account" };
 
 export default async function Register() {
   const session = await auth();
   if (session) redirect("/");
 
   return (
-    <main className="flex items-center justify-center min-h-screen flex-col">
-      <div className="w-[400px] p-10 space-y-5 shadow-lg rounded-lg border-1  border-neutral-200">
-        <div>
-          <div className="text-center space-y-5">
-            <h1 className="text-2xl font-bold">Register</h1>
-            <GithubSignIn />
-          </div>
-          <div className="flex items-center gap-4 mt-5">
-            <Separator className="flex-1" />
-            <span className="text-sm text-muted-foreground">
-              Or continue with email
+    <div className="flex items-center justify-center min-h-screen">
+      <Card className="w-full max-w-sm ">
+        <CardHeader>
+          <CardTitle className="text-2xl">Register</CardTitle>
+          <CardDescription>
+            Please provide necessary information
+          </CardDescription>
+          <CardContent className="mt-5">
+            <form className="space-y-5">
+              <div className="space-y-1">
+                <Label htmlFor="name">Name</Label>
+                <Input id="name" name="name" type="text" />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" name="email" type="email" />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="password">Password</Label>
+                <Input id="password" name="password" type="password" />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="confirm-password">Confirm Password</Label>
+                <Input
+                  id="confirm-password"
+                  name="confirm-password"
+                  type="password"
+                />
+              </div>
+              <Button className="w-full">Register</Button>
+            </form>
+          </CardContent>
+          <CardFooter>
+            <span>
+              Already have an account?{" "}
+              <Link href="/login" className="font-bold">
+                Login
+              </Link>
             </span>
-            <Separator className="flex-1" />
-          </div>
-        </div>
-        <form
-          action={async (formData: FormData) => {
-            "use server";
-            await executeAction({
-              actionFn: async () => {
-                await signIn("credentials", formData);
-              },
-            });
-          }}
-          className="space-y-5"
-        >
-          <div>
-            <Label htmlFor="name">Full Name</Label>
-            <Input id="name" placeholder="John Doe" name="name" type="text" />
-          </div>
-          <div>
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              placeholder="mail@company.com"
-              name="email"
-              type="email"
-            />
-          </div>
-          <div>
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              placeholder="••••••••••••••"
-              name="password"
-              type="password"
-            />
-          </div>
-          <Button className="w-full tracking-wide">Register</Button>
-        </form>
-
-        <div>
-          Already have an account?
-          <Link href="/login" className="font-semibold hover:underline">
-            Login
-          </Link>
-        </div>
-      </div>
-    </main>
+          </CardFooter>
+        </CardHeader>
+      </Card>
+    </div>
   );
 }
