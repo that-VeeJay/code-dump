@@ -11,7 +11,7 @@ import {
   Label,
   Separator,
 } from "@/components/ui";
-import GithubButton from "./_components/GithubButton";
+import GithubButton from "../_components/GithubButton";
 import { Metadata } from "next";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
